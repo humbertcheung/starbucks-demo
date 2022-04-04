@@ -1,0 +1,37 @@
+{
+  "id": "3302959",
+  "name": "Starbucks",
+  "font_family": "iconfont",
+  "css_prefix_text": "star-icon-",
+  "description": "starbucks-demo项目资源",
+  "glyphs": [
+    {
+      "icon_id": "2020962",
+      "name": "gifts",
+      "font_class": "gifts",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "2023527",
+      "name": "我的",
+      "font_class": "wode",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
+      "icon_id": "2023640",
+      "name": "订单",
+      "font_class": "dingdan",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    },
+    {
+      "icon_id": "2036621",
+      "name": "五角星空",
+      "font_class": "wujiaoxingkong",
+      "unicode": "e646",
+      "unicode_decimal": 58950
+    }
+  ]
+}

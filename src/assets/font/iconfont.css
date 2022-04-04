@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "iconfont";
+  /* Project id 3302959 */
+  src: url('iconfont.ttf?t=1649076646984') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.star-icon-gifts:before {
+  content: "\e621";
+}
+
+.star-icon-wode:before {
+  content: "\e634";
+}
+
+.star-icon-dingdan:before {
+  content: "\e637";
+}
+
+.star-icon-wujiaoxingkong:before {
+  content: "\e646";
+}
