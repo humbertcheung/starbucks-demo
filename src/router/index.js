@@ -4,10 +4,11 @@
  * @Author: Humbert Cheung
  * @Date: 2022-04-04 16:29:03
  * @LastEditors: [Humbert Cheung]
- * @LastEditTime: 2022-04-04 23:40:47
+ * @LastEditTime: 2022-04-05 23:19:35
  * @FilePath: /starbucks-demo/src/router/index.js
  * Copyright (C) 2022 syzhang. All rights reserved.
  */
+import store from '@/store'
 import { createRouter, createWebHistory } from 'vue-router'
 import RootView from '../views/RootView.vue'
 
@@ -44,6 +45,14 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+// 添加路由守卫
+router.beforeEach((to, from, next) => {
+  if (to.path == '/login' || store.state.userInfo) {
+    next()
+  } else {
+    next('/login')
+  }
 })
 
 export default router

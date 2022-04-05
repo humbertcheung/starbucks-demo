@@ -4,7 +4,7 @@
  * @Author: Humbert Cheung
  * @Date: 2022-04-04 21:24:38
  * @LastEditors: [Humbert Cheung]
- * @LastEditTime: 2022-04-05 00:57:17
+ * @LastEditTime: 2022-04-05 22:59:42
  * @FilePath: /starbucks-demo/src/views/login/Index.vue
  * Copyright (C) 2022 syzhang. All rights reserved.
 -->
@@ -40,6 +40,10 @@
 </template>
 
 <script>
+import Qs from "qs";
+import { mapMutations } from "vuex";
+import { Toast } from "vant";
+
 export default {
   data() {
     return {
@@ -52,8 +56,28 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(["saveUserInfo"]),
     onSubmit(values) {
-      console.log(values);
+      this.$axios({
+        method: "post",
+        url: "/api/login.php",
+        // axios参数类型默认是application/json，使用 axios 进行原生 ajax 请求时 post 无法直接传参
+        // 使用qs处理数据，将数据改成表单形式提交
+        data: Qs.stringify(values),
+      })
+        .then((res) => {
+          // 登录成功后将数据保存到vuex中
+          this.saveUserInfo(res.result.userInfo);
+          // 同时也保存数据到session，否则如果只保存在store里，则刷新后vuex中的数据会消失，导致鉴权失效
+          // 正常情况下，我们不会把用户敏感信息放入storage，一般只会放token
+          sessionStorage.setItem("userInfo", JSON.stringify(res.result.userInfo));
+          // 跳转到tab页面
+          this.$router.push("/");
+        })
+        .catch((error) => {
+          console.log(error);
+          Toast.fail("登录出错!");
+        });
     },
   },
 };
