@@ -33,7 +33,9 @@
         />
       </van-cell-group>
       <div style="margin: 16px">
-        <van-button round block color="#00682f" native-type="submit"> 确 定 </van-button>
+        <van-button round block color="#00682f" native-type="submit">
+          确 定
+        </van-button>
       </div>
     </van-form>
   </div>
@@ -70,7 +72,10 @@ export default {
           this.saveUserInfo(res.result.userInfo);
           // 同时也保存数据到session，否则如果只保存在store里，则刷新后vuex中的数据会消失，导致鉴权失效
           // 正常情况下，我们不会把用户敏感信息放入storage，一般只会放token
-          sessionStorage.setItem("userInfo", JSON.stringify(res.result.userInfo));
+          sessionStorage.setItem(
+            "userInfo",
+            JSON.stringify(res.result.userInfo)
+          );
           // 跳转到tab页面
           this.$router.push("/");
         })

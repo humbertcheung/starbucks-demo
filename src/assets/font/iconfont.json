@@ -6,6 +6,13 @@
   "description": "starbucks-demo项目资源",
   "glyphs": [
     {
+      "icon_id": "2161",
+      "name": "收藏夹",
+      "font_class": "shoucangjia",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
       "icon_id": "2020962",
       "name": "gifts",
       "font_class": "gifts",
