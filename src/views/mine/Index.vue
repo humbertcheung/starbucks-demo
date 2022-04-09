@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import ServiceCellsVue from "./components/ServiceCells.vue";
+import ServiceCells from "./components/ServiceCells.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -76,7 +76,7 @@ export default {
     };
   },
   components: {
-    "service-cells": ServiceCellsVue,
+    "service-cells": ServiceCells,
   },
   computed: {
     ...mapState(["userInfo"]),
