@@ -9,11 +9,16 @@
  * Copyright (C) 2022 syzhang. All rights reserved.
 -->
 <template>
-  <div>Home</div>
+  <map-container></map-container>
 </template>
 
 <script>
-export default {};
+import MapContainer from "../MapContainer.vue";
+export default {
+  components: {
+    "map-container": MapContainer,
+  },
+};
 </script>
 
 <style lang="scss" scoped></style>

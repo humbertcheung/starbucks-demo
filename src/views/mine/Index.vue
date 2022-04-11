@@ -58,25 +58,60 @@
     <div class="usual-operation common-radius common-color common-margin-bottom">
       <b>常用功能</b>
       <div class="usual-operation-cell">
-        <service-cells class="service-cells"></service-cells>
+        <service-cell
+          class="service-cell"
+          v-for="(item, index) in serviceList"
+          :key="index"
+          :service="item"
+        ></service-cell>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ServiceCells from "./components/ServiceCells.vue";
+import ServiceCell from "./components/ServiceCell.vue";
 import { mapState } from "vuex";
 
 export default {
   data() {
     return {
+      // 背景图片
       bg: require("@/assets/imgs/mine/bg-userInfo.png"),
+      // 星级的进度
       progress: 30,
+      // 常用功能列表的数据
+      serviceList: [
+        {
+          icon: require("@/assets/imgs/mine/service/address.png"),
+          title: "地址管理",
+          path: "/address",
+        },
+        {
+          icon: require("@/assets/imgs/mine/service/folder.png"),
+          title: "发票管理",
+          path: "",
+        },
+        {
+          icon: require("@/assets/imgs/mine/service/attention.png"),
+          title: "关注公众号",
+          path: "",
+        },
+        {
+          icon: require("@/assets/imgs/mine/service/customerService.png"),
+          title: "在线客服",
+          path: "",
+        },
+        {
+          icon: require("@/assets/imgs/mine/service/legal.png"),
+          title: "条款与证照",
+          path: "",
+        },
+      ],
     };
   },
   components: {
-    "service-cells": ServiceCells,
+    "service-cell": ServiceCell,
   },
   computed: {
     ...mapState(["userInfo"]),

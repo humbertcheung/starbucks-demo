@@ -4,7 +4,7 @@
  * @Author: Humbert Cheung
  * @Date: 2022-04-04 16:29:03
  * @LastEditors: [Humbert Cheung]
- * @LastEditTime: 2022-04-05 23:19:35
+ * @LastEditTime: 2022-04-10 22:25:51
  * @FilePath: /starbucks-demo/src/router/index.js
  * Copyright (C) 2022 syzhang. All rights reserved.
  */
@@ -20,7 +20,7 @@ const routes = [
     children: [
       {
         path: '/home',
-        component: () => import('../views/home/Index.vue')
+        component: () => import('../views/home/Index.vue'),
       },
       {
         path: '/club',
@@ -32,7 +32,15 @@ const routes = [
       },
       {
         path: '/mine',
-        component: () => import('../views/mine/Index.vue')
+        component: () => import('../views/mine/Index.vue'),
+      },
+      {
+        path: "/address",
+        component: () => import('../views/mine/address/Index.vue')
+      },
+      {
+        path: "/new-address",
+        component: () => import('../views/mine/address/NewAddress.vue')
       }
     ]
   },
