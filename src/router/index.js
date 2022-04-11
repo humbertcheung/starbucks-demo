@@ -4,7 +4,7 @@
  * @Author: Humbert Cheung
  * @Date: 2022-04-04 16:29:03
  * @LastEditors: [Humbert Cheung]
- * @LastEditTime: 2022-04-10 22:25:51
+ * @LastEditTime: 2022-04-11 20:29:28
  * @FilePath: /starbucks-demo/src/router/index.js
  * Copyright (C) 2022 syzhang. All rights reserved.
  */
@@ -56,7 +56,7 @@ const router = createRouter({
 })
 // 添加路由守卫
 router.beforeEach((to, from, next) => {
-  if (to.path == '/login' || store.state.userInfo) {
+  if (to.path == '/login' || store.state.user.userInfo) {
     next()
   } else {
     next('/login')

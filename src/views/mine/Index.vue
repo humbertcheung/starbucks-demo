@@ -114,7 +114,7 @@ export default {
     "service-cell": ServiceCell,
   },
   computed: {
-    ...mapState(["userInfo"]),
+    ...mapState("user", ["userInfo"]),
     levelDesc() {
       if (this.userInfo.star == 7) {
         return "银星级";

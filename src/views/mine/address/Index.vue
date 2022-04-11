@@ -14,7 +14,7 @@
     <van-nav-bar
       :title="this.$route.query.title"
       left-arrow
-      @click-left="$router.go(-1)"
+      @click-left="$router.push('/mine')"
     />
     <!-- 地址列表区域 -->
     <van-address-list
@@ -25,19 +25,21 @@
       @edit="onEdit"
     />
     <!-- 地址列表为空时的提示信息 -->
-    <div class="no-data" v-if="list.length == 0">暂无地址，请先添加地址哦~</div>
+    <div class="no-data" v-if="!list || list.length == 0">暂无地址，请先添加地址哦~</div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      // 地址列表
-      list: [],
-      // 被选中的地址的 id
+      // 被勾选中的地址的 id
       chosenAddressId: -1,
     };
+  },
+  computed: {
+    ...mapGetters("user", { list: "addressList" }),
   },
   methods: {
     onAdd() {
@@ -45,9 +47,13 @@ export default {
       console.log("跳转到新增地址页面");
       this.$router.push("/new-address");
     },
-    onEdit() {
-      // 编辑地址
-      console.log("编辑地址");
+    // 编辑地址
+    onEdit(editAddress) {
+      // 跳转到编辑界面
+      this.$router.push({
+        path: "/new-address",
+        query: { id: editAddress.id, type: "edit" },
+      });
     },
   },
 };
@@ -55,11 +61,14 @@ export default {
 
 <style lang="scss" scoped>
 .container {
+  // 修改导航栏、返回箭头的颜色
   :deep .van-nav-bar__title,
   :deep .van-nav-bar__arrow {
     color: #00682f;
   }
-  :deep .van-button--danger {
+  // 修改新增按钮、地址上“默认”标签的颜色
+  :deep .van-button--danger,
+  :deep .van-tag--danger {
     background-color: #00682f;
     border: #00682f;
   }
