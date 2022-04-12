@@ -12,6 +12,7 @@
     "@vant/area-data": "^1.2.3",
     "axios": "^0.26.1",
     "core-js": "^3.8.3",
+    "mitt": "^3.0.0",
     "register-service-worker": "^1.7.2",
     "vant": "^3.4.7",
     "vue": "^3.2.13",

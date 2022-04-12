@@ -44,7 +44,6 @@ export default {
   methods: {
     onAdd() {
       // 跳转到新增地址页面
-      console.log("跳转到新增地址页面");
       this.$router.push("/new-address");
     },
     // 编辑地址

@@ -4,7 +4,7 @@
  * @Author: Humbert Cheung
  * @Date: 2022-04-04 16:29:03
  * @LastEditors: [Humbert Cheung]
- * @LastEditTime: 2022-04-09 14:27:06
+ * @LastEditTime: 2022-04-12 15:04:08
  * @FilePath: /starbucks-demo/vue.config.js
  * Copyright (C) 2022 syzhang. All rights reserved.
  */
@@ -22,5 +22,10 @@ module.exports = defineConfig({
         changeOrigin: true,
       }
     }
+  },
+  configureWebpack: {
+    externals: {
+      AMap: "AMap",
+    },
   }
 })
