@@ -4,7 +4,7 @@
  * @Author: Humbert Cheung
  * @Date: 2022-04-11 16:16:44
  * @LastEditors: [Humbert Cheung]
- * @LastEditTime: 2022-04-11 23:29:19
+ * @LastEditTime: 2022-04-11 23:51:57
  * @FilePath: /starbucks-demo/src/store/user.js
  * Copyright (C) 2022 syzhang. All rights reserved.
  */
@@ -38,7 +38,7 @@ export default {
     saveUserInfo(state, userInfo) {
       state.userInfo = userInfo
     },
-    // 添加地址
+    // 添加/编辑地址
     addAddress(state, content) {
       let data = content.data
       if (content.type != "edit") {
@@ -51,6 +51,10 @@ export default {
         state.userInfo.common_address.splice(state.userInfo.common_address.findIndex(item => item.id == data.id), 1, data)
       }
     },
+    // 删除地址
+    deleteAddress(state, address) {
+      state.userInfo.common_address.splice(state.userInfo.common_address.findIndex(item => item.id == address.id), 1)
+    }
   },
   actions: {
   },

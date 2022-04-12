@@ -34,6 +34,7 @@
 <script>
 import { areaList } from "@vant/area-data";
 import { mapGetters, mapMutations } from "vuex";
+import { Dialog } from "vant";
 
 export default {
   data() {
@@ -50,7 +51,7 @@ export default {
     ...mapGetters("user", ["searchAddress"]),
   },
   methods: {
-    ...mapMutations("user", ["addAddress"]),
+    ...mapMutations("user", ["addAddress", "deleteAddress"]),
     onSave(data) {
       // 存储数据
       console.log(data);
@@ -61,10 +62,24 @@ export default {
       };
       this.addAddress(content);
       // 跳回上一页
-      this.$router.push("/address");
+      this.$router.push({ path: "/address", query: { title: "地址管理" } });
     },
     onDelete() {
       // 删除数据
+      Dialog.confirm({
+        title: "警告",
+        message: "是否删除“" + this.AddressInfo.name + "”这个地址",
+      })
+        .then(() => {
+          // on confirm
+          this.deleteAddress(this.AddressInfo);
+          // 跳回上一页
+          this.$router.push({ path: "/address", query: { title: "地址管理" } });
+        })
+        .catch(() => {
+          // on cancel
+          return;
+        });
     },
   },
   created() {
