@@ -4,7 +4,7 @@
  * @Author: Humbert Cheung
  * @Date: 2022-04-04 16:29:03
  * @LastEditors: [Humbert Cheung]
- * @LastEditTime: 2022-04-11 20:29:28
+ * @LastEditTime: 2022-04-14 13:34:06
  * @FilePath: /starbucks-demo/src/router/index.js
  * Copyright (C) 2022 syzhang. All rights reserved.
  */
@@ -41,8 +41,18 @@ const routes = [
       {
         path: "/new-address",
         component: () => import('../views/mine/address/NewAddress.vue')
-      }
+      },
     ]
+  },
+  {
+    path: "/feikuai",
+    name: "FeiKuai",
+    component: () => import('../views/home/feikuai/Index.vue')
+  },
+  {
+    path: "/city",
+    name: "City",
+    component: () => import('../views/home/city/Index.vue')
   },
   { // 登录页面的路由
     path: '/login',

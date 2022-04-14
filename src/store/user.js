@@ -4,7 +4,7 @@
  * @Author: Humbert Cheung
  * @Date: 2022-04-11 16:16:44
  * @LastEditors: [Humbert Cheung]
- * @LastEditTime: 2022-04-11 23:51:57
+ * @LastEditTime: 2022-04-14 13:21:43
  * @FilePath: /starbucks-demo/src/store/user.js
  * Copyright (C) 2022 syzhang. All rights reserved.
  */
@@ -17,6 +17,9 @@ export default {
     // 获取地址列表
     addressList(state) {
       let list = []
+      if (!state.userInfo.common_address) {
+        return []
+      }
       state.userInfo.common_address.forEach(item => {
         // 对数据进行改造，改造成前端的地址列表可以展示的数据结构，
         // 其中item中的所有字段都可以转化，除了address不一样

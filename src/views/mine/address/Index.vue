@@ -9,8 +9,8 @@
  * Copyright (C) 2022 syzhang. All rights reserved.
 -->
 <template>
-  <!-- 顶部导航栏 -->
   <div class="container">
+    <!-- 顶部导航栏 -->
     <van-nav-bar
       :title="this.$route.query.title"
       left-arrow
@@ -60,7 +60,7 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  // 修改导航栏、返回箭头的颜色
+  // 修改导航栏标题、返回箭头的颜色
   :deep .van-nav-bar__title,
   :deep .van-nav-bar__arrow {
     color: #00682f;
