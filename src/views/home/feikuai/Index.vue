@@ -11,7 +11,7 @@
 <template>
   <div class="container">
     <!-- 顶部导航栏区域 -->
-    <van-nav-bar left-arrow>
+    <van-nav-bar class="nav-bar" left-arrow @click-left="$router.push('/home')">
       <template #title>
         <van-field type="text" left-icon="search" placeholder="搜索"></van-field>
       </template>
@@ -19,7 +19,7 @@
     <!-- 商品列表区域 -->
     <div class="product-list">
       <!-- 左侧菜单区域 -->
-      <van-sidebar class="left-menu" v-model="selectedCat">
+      <van-sidebar class="left-menu" v-model="selectedCat" @change="categoryChange">
         <van-sidebar-item
           class="left-menu-item"
           v-for="(item, index) in categoriesList"
@@ -31,7 +31,7 @@
       <div class="right-content">
         <!-- 每个分类中的产品列表 -->
         <div
-          class="products"
+          :class="['products', { toTop: selectedCat == index ? true : false }]"
           v-for="(category, index) in categoriesList"
           :key="category"
           :id="index"
@@ -59,7 +59,7 @@
                   >￥
                   <span class="price-num">{{ item.price }}</span>
                 </span>
-                <van-icon color="#00682f" name="add" size="1.5rem" />
+                <van-icon class="add-btn" color="#00682f" name="add" size="1.5rem" />
               </div>
             </div>
           </div>
@@ -77,6 +77,8 @@ export default {
       categoriesList: [],
       // 被选中的分类
       selectedCat: 0,
+      // 是否置顶
+      isTop: false,
     };
   },
   methods: {
@@ -91,6 +93,11 @@ export default {
         this.categoriesList = res.data.categories;
       });
     },
+    // 左侧菜单栏导航切换菜单
+    categoryChange() {
+      // 右侧内容随导航的切换置顶显示
+      document.getElementById(this.selectedCat).scrollIntoView({ behavior: "smooth" });
+    },
   },
   created() {
     this.loadData();
@@ -99,6 +106,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// 隐藏滚动条（不兼容IE、FF）
+::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0;
+}
 .container {
   // 修改导航栏返回按钮颜色
   :deep .van-nav-bar__arrow {
@@ -112,29 +124,45 @@ export default {
   :deep .van-sidebar-item--select::before {
     display: none;
   }
+  // 导航条
+  .nav-bar {
+    width: 100%;
+    // 固定导航条
+    position: fixed;
+    top: 0px;
+  }
   // 商品列表区域
   .product-list {
+    // 固定列表区域，解决锚点定位时顶部内容被导航栏遮挡问题
+    position: fixed;
+    top: 56px;
+    height: 100%;
+    overflow: hidden;
+    padding-bottom: 56px; // 解决最后一个内容被遮挡问题
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
     // 左侧菜单区域
     .left-menu {
-      width: 33rem;
+      overflow: auto;
+      width: 30%;
     }
     // 右侧内容区域
     .right-content {
+      width: 70%;
+      overflow: auto;
       padding: 10px 20px;
       background-color: #ffffff;
       // 每个分类中的产品列表
       .products {
         // 分类标题
+        padding-top: 5px;
         .category-title {
           margin: 15px 0px 20px 10px;
         }
         // 产品
         .product {
-          margin-bottom: 10px;
+          margin-bottom: 15px;
           display: flex;
           justify-content: space-between;
           // 产品图片
@@ -143,20 +171,23 @@ export default {
           }
           // 产品描述
           .product-desc {
-            margin-left: 25px;
+            margin-left: 20px;
             display: flex;
             flex-direction: column;
             width: 100%;
             .product-desc-name {
-              font-weight: 600;
+              font-weight: 500;
             }
             .product-desc-price {
               display: flex;
               align-items: center;
-              justify-content: space-between;
-              font-weight: 600;
+              justify-content: stretch;
+              font-weight: 500;
               .price-num {
                 color: #00682f;
+              }
+              .add-btn {
+                margin-left: 15px;
               }
             }
           }
