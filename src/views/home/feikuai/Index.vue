@@ -25,19 +25,21 @@
           v-for="(item, index) in categoriesList"
           :title="item.name"
           :key="index"
+          ref="sidebarItem"
         />
       </van-sidebar>
       <!-- 右侧内容区域 -->
-      <div class="right-content">
+      <div class="right-content" ref="rightContent">
         <!-- 每个分类中的产品列表 -->
         <div
           :class="['products', { toTop: selectedCat == index ? true : false }]"
           v-for="(category, index) in categoriesList"
           :key="category"
           :id="index"
+          ref="products"
         >
           <!-- 分类的标题 -->
-          <div class="category-title">
+          <div class="category-title" refs="categoryTitle">
             <b>
               {{ category.name }}
               ({{ category.sub_categories[0].products.length }})
@@ -95,12 +97,43 @@ export default {
     },
     // 左侧菜单栏导航切换菜单
     categoryChange() {
-      // 右侧内容随导航的切换置顶显示
-      document.getElementById(this.selectedCat).scrollIntoView({ behavior: "smooth" });
+      // 右侧内容随导航的切换置顶显示，设置左侧菜单点击时右侧和左侧联动
+      // document.getElementById(this.selectedCat).scrollIntoView({ behavior: "smooth" });
+      this.$refs.products.forEach((item) => {
+        if (item.id == this.selectedCat) {
+          // 如果id和被选中的 item的索引相同,说明该内容是item对应的内容，那么就进行锚点定位
+          item.scrollIntoView({ behavior: "smooth" });
+        }
+      });
     },
   },
   created() {
     this.loadData();
+  },
+  mounted() {
+    // 监听右侧的内容的滚动事件，设置右侧滚动时和左侧和右侧联动
+    let self = this;
+    this.$refs.rightContent.addEventListener("scroll", function () {
+      // 判断 .poducts 距离父视图顶部的距离
+      self.$refs.products.forEach((item, index) => {
+        // 当右侧内容距离页面顶部的距离等于 5 时说明此时此内容置顶了，
+        // 那么左侧的导航像也需要做相应的变更
+        // 注：减 56是因为整个列表设置了 top: 56px，向下便偏移了 56
+        // 那getBoundingClientRect()方法。返回一个对象，其中包含了left、right、top、bottom四个属性，
+        // 分别对应了该元素的左上角和右下角相对于浏览器窗口（viewport）左上角的距离。
+        if (item.getBoundingClientRect().top - 56 < 5) {
+          self.selectedCat = index;
+        }
+        // 解决最后一个因为高度过短，左侧标签无法更新问题
+        // offsetHeight 是元素的高度
+        if (
+          index == self.categoriesList.length - 2 &&
+          item.getBoundingClientRect().bottom < item.offsetHeight
+        ) {
+          self.selectedCat = self.categoriesList.length - 1;
+        }
+      });
+    });
   },
 };
 </script>
@@ -146,12 +179,13 @@ export default {
     .left-menu {
       overflow: auto;
       width: 30%;
+      padding-bottom: 56px;
     }
     // 右侧内容区域
     .right-content {
       width: 70%;
       overflow: auto;
-      padding: 10px 20px;
+      padding: 10px 20px 56px;
       background-color: #ffffff;
       // 每个分类中的产品列表
       .products {
