@@ -4,7 +4,7 @@
  * @Author: Humbert Cheung
  * @Date: 2022-04-11 16:16:44
  * @LastEditors: [Humbert Cheung]
- * @LastEditTime: 2022-04-14 13:21:43
+ * @LastEditTime: 2022-04-17 19:07:49
  * @FilePath: /starbucks-demo/src/store/user.js
  * Copyright (C) 2022 syzhang. All rights reserved.
  */

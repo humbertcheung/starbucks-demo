@@ -59,19 +59,39 @@
               <div class="product-desc-price">
                 <span
                   >￥
-                  <span class="price-num">{{ item.price }}</span>
+                  <span class="price-num">{{ (item.price / 100).toFixed(2) }}</span>
                 </span>
-                <van-icon class="add-btn" color="#00682f" name="add" size="1.5rem" />
+                <van-icon
+                  class="add-btn"
+                  color="#00682f"
+                  name="add"
+                  size="1.5rem"
+                  @click="addToCart(item)"
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- 底部动作栏 -->
+    <van-action-bar>
+      <van-action-bar-icon icon="chat-o" text="客服" />
+      <van-action-bar-icon
+        icon="cart-o"
+        text="购物车"
+        @click="$router.push('/cart')"
+        :badge="productsNum"
+      />
+      <van-action-bar-icon icon="shop-o" text="店铺" />
+      <van-action-bar-button type="danger" text="立即购买" />
+    </van-action-bar>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
   data() {
     return {
@@ -84,6 +104,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations("cart", ["addToCart"]),
     // 获取数据
     loadData() {
       this.$axios({
@@ -119,7 +140,7 @@ export default {
         // 当右侧内容距离页面顶部的距离等于 5 时说明此时此内容置顶了，
         // 那么左侧的导航像也需要做相应的变更
         // 注：减 56是因为整个列表设置了 top: 56px，向下便偏移了 56
-        // 那getBoundingClientRect()方法。返回一个对象，其中包含了left、right、top、bottom四个属性，
+        // getBoundingClientRect()方法。返回一个对象，其中包含了left、right、top、bottom四个属性，
         // 分别对应了该元素的左上角和右下角相对于浏览器窗口（viewport）左上角的距离。
         if (item.getBoundingClientRect().top - 56 < 5) {
           self.selectedCat = index;
@@ -134,6 +155,9 @@ export default {
         }
       });
     });
+  },
+  computed: {
+    ...mapGetters("cart", ["productsNum"]),
   },
 };
 </script>
@@ -156,6 +180,10 @@ export default {
   // 去掉侧边栏导航中被选中项左侧的色块
   :deep .van-sidebar-item--select::before {
     display: none;
+  }
+  // 修改底部动作栏的颜色
+  :deep .van-action-bar-button--danger {
+    background: #00682f;
   }
   // 导航条
   .nav-bar {

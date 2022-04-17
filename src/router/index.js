@@ -4,7 +4,7 @@
  * @Author: Humbert Cheung
  * @Date: 2022-04-04 16:29:03
  * @LastEditors: [Humbert Cheung]
- * @LastEditTime: 2022-04-14 13:34:06
+ * @LastEditTime: 2022-04-17 17:18:43
  * @FilePath: /starbucks-demo/src/router/index.js
  * Copyright (C) 2022 syzhang. All rights reserved.
  */
@@ -53,6 +53,11 @@ const routes = [
     path: "/city",
     name: "City",
     component: () => import('../views/home/city/Index.vue')
+  },
+  {
+    path: "/cart",
+    name: "cart",
+    component: () => import('../views/home/cart/Index.vue')
   },
   { // 登录页面的路由
     path: '/login',
